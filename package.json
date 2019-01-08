@@ -23,8 +23,11 @@
     "typescript": "^3.2.2"
   },
   "dependencies": {
+    "@types/node": "^10.12.18",
     "@types/restify": "^7.2.7",
     "pg": "^7.7.1",
-    "restify": "^7.4.0"
+    "reflect-metadata": "^0.1.12",
+    "restify": "^7.4.0",
+    "typeorm": "^0.2.11"
   }
 }
