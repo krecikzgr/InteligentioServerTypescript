@@ -1,6 +1,13 @@
 
-import {Server} from 'restify';
+import {HttpServer} from '../httpServer'
+import {SceneResource} from './scene/SceneResource'
+
+
 
 export interface Resource {
-    initialize(server: Server): void;
+    initialize(httpServer: HttpServer): void;
 }
+
+export const RESOURCES = [
+    new SceneResource()
+]

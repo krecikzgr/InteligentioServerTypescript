@@ -1,5 +1,5 @@
 import {SceneResource} from './resources/scene/SceneResource'
-import {App} from './App'
+import {ApiServer} from './App'
 
 
 import {DatabaseProvider} from './utilities/Database';
@@ -16,7 +16,5 @@ DatabaseProvider.configure({
 
 
 const sceneResource = new SceneResource()
-const app = new App()
-
-sceneResource.initialize(app.getServer());
-app.start()
+const app = new ApiServer()
+app.start(3001)
