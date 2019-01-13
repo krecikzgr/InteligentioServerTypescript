@@ -1,4 +1,4 @@
-import {Scene} from './Scene';
+import { Scene } from "./Scene";
 import {DatabaseProvider} from '../../utilities/Database';
 
 export class SceneService {

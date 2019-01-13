@@ -1,7 +1,5 @@
-import {SceneResource} from './resources/scene/SceneResource'
+import "reflect-metadata";
 import {ApiServer} from './App'
-
-
 import {DatabaseProvider} from './utilities/Database';
 
 DatabaseProvider.configure({
@@ -14,7 +12,5 @@ DatabaseProvider.configure({
     ssl: !!process.env.USE_SSL
 });
 
-
-const sceneResource = new SceneResource()
 const app = new ApiServer()
 app.start(3001)

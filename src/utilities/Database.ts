@@ -1,5 +1,5 @@
 import {Connection, createConnection} from 'typeorm';
-import {Scene} from '../resources/scene/Scene';
+import { Scene } from "../resources/scene/Scene";
 
 
 export interface DatabaseConfiguration {
@@ -36,11 +36,11 @@ export class DatabaseProvider {
                 ssl
             },
             entities: [
-                Scene
+                Scene,
             ],
             autoSchemaSync: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
-
+        await DatabaseProvider.connection.synchronize();
         return DatabaseProvider.connection;
     }
 }
