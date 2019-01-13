@@ -16,6 +16,7 @@ export class SceneService {
         const connection = await DatabaseProvider.getConnection();
         return await connection.getRepository(Scene).find();
     }
+
 }
 
 export const sceneService = new SceneService();

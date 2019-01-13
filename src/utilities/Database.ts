@@ -1,6 +1,8 @@
 import {Connection, createConnection} from 'typeorm';
 import { Scene } from "../resources/scene/Scene";
-
+import {SceneSetting} from '../resources/sceneSetting/SceneSetting';
+import {Room} from '../resources/room/Room';
+import {Sensor} from '../resources/sensor/Sensor';
 
 export interface DatabaseConfiguration {
     type: 'postgres' | 'mysql' | 'mssql';
@@ -37,6 +39,9 @@ export class DatabaseProvider {
             },
             entities: [
                 Scene,
+                SceneSetting,
+                Room,
+                Sensor,
             ],
             autoSchemaSync: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here

@@ -1,8 +1,8 @@
 import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
-import {SceneSetting} from '../sceneSetting/SceneSetting';
+import {Sensor} from '../sensor/Sensor';
 
 @Entity()
-export class Scene {
+export class Room {
     @PrimaryGeneratedColumn()
     public id: number;
 
@@ -12,6 +12,6 @@ export class Scene {
     @Column()
     public description: string;
 
-    @OneToMany(type => SceneSetting, sceneSetting => sceneSetting.scene)
-    public settings: SceneSetting[];
+    // @OneToMany(type => Sensor, sensor => sensor.room)
+    // public sensors: Sensor[];
 }
