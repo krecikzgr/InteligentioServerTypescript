@@ -22,7 +22,11 @@ export class ApiServer implements HttpServer {
         this.addRoute('put', url, requestHandler);
     }
 
-    private addRoute(method: 'get' | 'post' | 'put' | 'del', url: string, requestHandler: RequestHandler): void {
+    public patch(url: string, requestHandler: RequestHandler): void {
+        this.addRoute('patch', url, requestHandler);
+    }
+
+    private addRoute(method: 'get' | 'post' | 'put' | 'del' | 'patch', url: string, requestHandler: RequestHandler): void {
         this.restify[method](url, async (req, res, next) => {
             try {
                 await requestHandler(req, res, next);

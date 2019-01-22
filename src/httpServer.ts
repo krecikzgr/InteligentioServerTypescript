@@ -8,4 +8,6 @@ export interface HttpServer {
     del(url: string, requestHandler: RequestHandler): void;
 
     put(url: string, requestHandler: RequestHandler): void;
+
+    patch(url:string, requestHandler: RequestHandler): void;
 }

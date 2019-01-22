@@ -41,11 +41,10 @@ export class DatabaseProvider {
                 Scene,
                 SceneSetting,
                 Room,
-                Sensor,
+                Sensor
             ],
-            autoSchemaSync: true
+            synchronize: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
-        await DatabaseProvider.connection.synchronize();
         return DatabaseProvider.connection;
     }
 }

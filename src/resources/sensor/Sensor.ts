@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
-import {Room} from '../Room/Room';
+import {Room} from '../room/Room';
 
 @Entity()
 export class Sensor {
@@ -15,6 +15,6 @@ export class Sensor {
     @Column()
     public isActive:Boolean;
 
-    // @ManyToOne(type => Room, room => room.sensors)
-    // public room:Room;
+    @ManyToOne(type => Room, room => room.sensors)
+    public room:Room;
 }

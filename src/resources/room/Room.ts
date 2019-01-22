@@ -12,6 +12,7 @@ export class Room {
     @Column()
     public description: string;
 
-    // @OneToMany(type => Sensor, sensor => sensor.room)
-    // public sensors: Sensor[];
+    @OneToMany(type => Sensor, sensor => sensor.room)
+    public sensors: Sensor[];
+
 }
