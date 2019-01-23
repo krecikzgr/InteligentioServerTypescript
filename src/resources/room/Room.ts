@@ -14,5 +14,4 @@ export class Room {
 
     @OneToMany(type => Sensor, sensor => sensor.room)
     public sensors: Sensor[];
-
 }

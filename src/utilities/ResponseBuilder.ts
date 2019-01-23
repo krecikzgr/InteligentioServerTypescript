@@ -34,7 +34,7 @@ export class ResponseBuilder {
     //     this.data = data
     //     return this
     // }
-    withMessage(message) {
+    withMessage(message:String) {
         this.message = message
         return this
     }

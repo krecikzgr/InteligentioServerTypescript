@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable} from 'typeorm';
 import {Room} from '../room/Room';
 
 @Entity()
@@ -15,6 +15,10 @@ export class Sensor {
     @Column()
     public isActive:Boolean;
 
+    @Column({ nullable: true })
+    roomId: number;
+
     @ManyToOne(type => Room, room => room.sensors)
+    @JoinTable()
     public room:Room;
 }

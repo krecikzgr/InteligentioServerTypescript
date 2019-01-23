@@ -1,5 +1,6 @@
 import { Room } from "./Room";
 import {DatabaseProvider} from '../../utilities/Database';
+import {sensorService} from '../sensor/SensorService';
 
 export class RoomService {
     public async create(scene: Room): Promise<Room> {
@@ -17,6 +18,14 @@ export class RoomService {
         return await connection.getRepository(Room).find();
     }
 
+    public async activate(id:number, isActive:boolean): Promise<Room> {
+        const connection = await DatabaseProvider.getConnection();
+        const room = await connection.getRepository(Room).findOne(id);
+        await Promise.all(room.sensors.map( async (sensor) => {
+            sensorService.activate(sensor.id, isActive);
+        }));
+        return await connection.getRepository(Room).save(room);
+    }
 }
 
 export const roomService = new RoomService();

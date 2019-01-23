@@ -3,7 +3,7 @@ import { Sensor } from "./Sensor";
 import { Room } from "../room/Room";
 
 export class SensorService {
-    public async create(roomId:number,setting: Sensor): Promise<Sensor> {
+    public async create(roomId:number, setting: Sensor): Promise<Sensor> {
         const connection = await DatabaseProvider.getConnection();
 
         const newObject = new Sensor();
@@ -35,7 +35,26 @@ export class SensorService {
         sensor.isActive = isActive;
         return await connection.getRepository(Sensor).save(sensor);
     }
-
+    
+    public async update(id:number,sensor: Sensor): Promise<Sensor> {
+        const connection = await DatabaseProvider.getConnection();
+        const oldSensor = await connection.getRepository(Sensor).findOne(id);
+        if(!oldSensor){
+            console.log("OLD SENSOR is null" + oldSensor);
+            return
+        }
+        oldSensor.isActive = sensor.isActive;
+        oldSensor.description = sensor.description;
+        oldSensor.name = sensor.name;
+        const room = await connection.getRepository(Room).findOne(sensor.roomId);
+        if (!room) {
+            return await connection.getRepository(Sensor).save(oldSensor);
+        }
+        oldSensor.room = room; 
+        room.sensors = [oldSensor];
+        await connection.getRepository(Room).save(room);
+        return await connection.getRepository(Sensor).save(oldSensor);
+    }
 }
 
 export const sensorService = new SensorService();

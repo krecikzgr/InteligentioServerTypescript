@@ -9,6 +9,7 @@ export class SensorResource implements Resource {
         server.post("/sensor/", this.create.bind(this))
         server.get("/sensor/:id", this.get)
         server.patch("/sensor/:id/activate", this.activate)
+        server.patch("/sensor/:id", this.update)
     }
 
     private async list(req: Request, res: Response): Promise<void> {
@@ -25,5 +26,8 @@ export class SensorResource implements Resource {
 
     private async activate(req: Request, res: Response): Promise<void> {
         res.send(await sensorService.activate(req.params.id, req.body.isActive));
+    }
+    private async update(req:Request, res: Response): Promise<void>  {
+        res.send(await sensorService.update(req.params.id, req.body));
     }
 }
