@@ -5,6 +5,7 @@ export class ResponseBuilder {
 
     private httpCode:number
     private message:String
+    private data: any
 
     constructor(){
         this.httpCode = 200
@@ -30,10 +31,11 @@ export class ResponseBuilder {
         return this
     }
     //TODO: How to
-    // withJsonData(data) {
-    //     this.data = data
-    //     return this
-    // }
+    withData(data:any) {
+        this.data = data
+        return this
+    }
+
     withMessage(message:String) {
         this.message = message
         return this
@@ -41,7 +43,7 @@ export class ResponseBuilder {
     build(response:Response) {
         response.status(this.httpCode)
         response.send({ 'message': this.message,
-        'data': "Data to be passed"})
+        'data': this.data})
     }
 }
 

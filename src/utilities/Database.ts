@@ -38,9 +38,9 @@ export class DatabaseProvider {
                 ssl
             },
             entities: [
+                Room,
                 Scene,
                 SceneSetting,
-                Room,
                 Sensor
             ],
             synchronize: true

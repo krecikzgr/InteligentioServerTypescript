@@ -51,9 +51,9 @@ export class SensorService {
             return await connection.getRepository(Sensor).save(oldSensor);
         }
         oldSensor.room = room; 
-        room.sensors = [oldSensor];
-        console.log("ROOM SENSORS " + room.sensors);
-       //return await connection.getRepository(Sensor).save(oldSensor);
+        room.sensors.push(oldSensor);
+        await connection.getRepository(Room).save(room);
+        return await connection.getRepository(Sensor).save(oldSensor);
     }
 }
 

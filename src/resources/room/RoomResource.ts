@@ -2,6 +2,7 @@ import {Request, Response, Next} from 'restify';
 import {Resource} from '../Resource'
 import {roomService} from './RoomService'
 import {HttpServer} from '../../httpServer'
+import {ResponseBuilder} from '../../utilities/ResponseBuilder';
 
 export class RoomResource implements Resource {
     public initialize(server: HttpServer):void {
@@ -19,6 +20,19 @@ export class RoomResource implements Resource {
     }
 
     private async activate(req: Request, res: Response): Promise<void> {
-        res.send(await roomService.activate(req.params.id, req.body.isActive));
+        const responseBuilder = new ResponseBuilder();
+        try {
+            const data = await roomService.activate(req.params.id, req.body.isActive);
+            responseBuilder
+            .withMessage("Did activate room " + req.params.id)
+            .withData(data)
+            .build(res);
+        } catch (e) {
+            console.log("Error while activating room " + req.params.id + " " + e)
+            responseBuilder
+            .withMessage("Could not activate room " + req.params.id )
+            .withHttpResourceNotAvailable()
+            .build(res);
+        }
     }
 }

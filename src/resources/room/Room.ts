@@ -1,8 +1,9 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable} from 'typeorm';
 import {Sensor} from '../sensor/Sensor';
 
 @Entity()
 export class Room {
+
     @PrimaryGeneratedColumn()
     public id: number;
 
@@ -12,6 +13,8 @@ export class Room {
     @Column()
     public description: string;
 
-    @OneToMany(type => Sensor, sensor => sensor.room)
+    @OneToMany(type => Sensor, sensor => sensor.room, {
+        eager: true
+    })
     public sensors: Sensor[];
 }
