@@ -69,8 +69,8 @@ export class SensorResource implements Resource {
         } catch (e) {
             console.log("error" + e)
         }
-
     }
+    
     private async update(req:Request, res: Response): Promise<void>  {
         const responseBuilder = new ResponseBuilder();
         const data = await sensorService.update(req.params.id, req.body)

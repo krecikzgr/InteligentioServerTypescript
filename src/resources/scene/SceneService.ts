@@ -1,4 +1,5 @@
 import { Scene } from "./Scene";
+import { SceneSetting } from "../sceneSetting/SceneSetting";
 import {DatabaseProvider} from '../../utilities/Database';
 
 export class SceneService {
@@ -17,6 +18,9 @@ export class SceneService {
         return await connection.getRepository(Scene).find();
     }
 
+    public async assignSceneSettings(sceneId:number, settings:[SceneSetting]) {
+        
+    }
 }
 
 export const sceneService = new SceneService();

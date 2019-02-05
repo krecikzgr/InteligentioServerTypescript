@@ -26,6 +26,11 @@ export class SceneSettingService {
         const connection = await DatabaseProvider.getConnection();
         return await connection.getRepository(SceneSetting).find();
     }
+
+    public async settingsFromScene(sceneId:number): Promise<SceneSetting[]> {
+        const connection = await DatabaseProvider.getConnection();
+        return await connection.getRepository(SceneSetting).find({ where: { sceneId: sceneId }});
+    }
 }
 
 export const sceneSettingService = new SceneSettingService();

@@ -40,7 +40,6 @@ export class SensorService {
         const connection = await DatabaseProvider.getConnection();
         const oldSensor = await connection.getRepository(Sensor).findOne(id);
         if(!oldSensor){
-            console.log("OLD SENSOR is null" + oldSensor);
             return
         }
         oldSensor.isActive = sensor.isActive;
