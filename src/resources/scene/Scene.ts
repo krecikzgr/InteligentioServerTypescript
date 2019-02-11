@@ -12,6 +12,8 @@ export class Scene {
     @Column()
     public description: string;
 
-    @OneToMany(type => SceneSetting, sceneSetting => sceneSetting.scene)
+    @OneToMany(type => SceneSetting, sceneSetting => sceneSetting.scene, {
+        eager: true
+    })
     public settings: SceneSetting[];
 }

@@ -36,7 +36,7 @@ export class SensorService {
         return await connection.getRepository(Sensor).save(sensor);
     }
     
-    public async update(id:number,sensor: Sensor): Promise<Sensor> {
+    public async update(id:number, sensor: Sensor): Promise<Sensor> {
         const connection = await DatabaseProvider.getConnection();
         const oldSensor = await connection.getRepository(Sensor).findOne(id);
         if(!oldSensor){

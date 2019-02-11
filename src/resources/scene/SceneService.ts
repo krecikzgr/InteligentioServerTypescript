@@ -1,6 +1,7 @@
 import { Scene } from "./Scene";
 import { SceneSetting } from "../sceneSetting/SceneSetting";
 import {DatabaseProvider} from '../../utilities/Database';
+import {sensorService} from '../sensor/SensorService';
 
 export class SceneService {
     public async create(scene: Scene): Promise<Scene> {
@@ -18,8 +19,16 @@ export class SceneService {
         return await connection.getRepository(Scene).find();
     }
 
-    public async assignSceneSettings(sceneId:number, settings:[SceneSetting]) {
-        
+    public async activateScene(sceneId:number):Promise<Scene> {
+        const connection = await DatabaseProvider.getConnection();
+        const scene = await connection.getRepository(Scene).findOne(sceneId);
+        if( scene == null ) {
+            return Promise.resolve(null);
+        } 
+        await Promise.all(scene.settings.map( async (setting) => {
+            sensorService.activate(setting.sensorId, setting.isActive);
+        }));
+        return await connection.getRepository(Scene).save(scene);
     }
 }
 

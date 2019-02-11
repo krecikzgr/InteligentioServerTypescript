@@ -8,7 +8,8 @@ export class SceneSettingService {
 
         const newObject = new SceneSetting();
         newObject.isActive = setting.isActive;
-
+        newObject.sensorId = setting.sensorId;
+        
         const scene = await connection.getRepository(Scene).findOne(sceneId);
         if (!scene) {
             return

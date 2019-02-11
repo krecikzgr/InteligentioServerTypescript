@@ -17,6 +17,7 @@ export class SceneSettingResource implements Resource {
         try {
             var data = new Object();
             if(sceneId > 0) {
+                console.log("ScENE SETTINGS FROM SCENE")
                 data = await sceneSettingService.settingsFromScene(req.query.sceneId)
             } else {
                 data = await sceneSettingService.list()
@@ -38,6 +39,6 @@ export class SceneSettingResource implements Resource {
     }
 
     private async create(req: Request, res: Response): Promise<void> {
-        res.send(await sceneSettingService.create(req.params.sceneId,req.body));
+        res.send(await sceneSettingService.create(req.body.sceneId,req.body));
     }
 }
