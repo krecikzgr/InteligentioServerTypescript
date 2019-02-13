@@ -17,4 +17,8 @@ export class Room {
         eager: true
     })
     public sensors: Sensor[];
+
+
+    //Calculated fields
+    public isActive:boolean;
 }
