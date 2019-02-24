@@ -1,7 +1,7 @@
 import { Room } from "./Room";
 import {DatabaseProvider} from '../../utilities/Database';
 import {sensorService} from '../sensor/SensorService';
-import {RoomDecoratorIsActive} from './decorators/RoomDecoratorIsActive';
+import {roomDecoratorService} from './decorators/RoomDecoratorService';
 
 export class RoomService {
     public async create(scene: Room): Promise<Room> {
@@ -18,8 +18,7 @@ export class RoomService {
         const connection = await DatabaseProvider.getConnection();
         const rooms = await connection.getRepository(Room).find();
         return await Promise.all(rooms.map( async (room) => {
-            const decorator = new RoomDecoratorIsActive();
-            return await decorator.decorate(room);
+            return await roomDecoratorService.decorate(room);
         }));
     }
 

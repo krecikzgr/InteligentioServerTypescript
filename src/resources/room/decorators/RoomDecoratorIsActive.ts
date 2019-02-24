@@ -8,4 +8,11 @@ export class RoomDecoratorIsActive implements ObjectDecorator<Room> {
             resolve(object);
         })
     }
+
+    digest(object:Room): Promise<Room> {
+        //TODO: READ THE STATE OF ALLL SENSORS IN THE ROOM
+        return new Promise((resolve)=> {
+            resolve(object);
+        }) 
+    }
 }
