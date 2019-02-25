@@ -13,9 +13,6 @@ export class Sensor {
     @Column()
     public description: string;
 
-    @Column()
-    public isActive:Boolean;
-
     @Column({ nullable: true })
     roomId: number;
 
@@ -28,4 +25,7 @@ export class Sensor {
     })
     
     public settings: SceneSetting[];
+
+    //Calculated fields
+    public isActive:boolean;
 }
