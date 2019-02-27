@@ -1,29 +1,17 @@
 import { Room } from "./Room";
 import { DatabaseProvider } from '../../utilities/Database';
 import { sensorService } from '../sensor/SensorService';
-import { roomDecoratorService } from './decorators/RoomDecoratorService';
-import { DecoratorService } from "../../ObjectDecorator";
-import { runInThisContext } from "vm";
+import { RoomDecoratorIsActive } from "./decorators/RoomDecoratorIsActive";
+import { ObjectService } from "../ObjectService";
 
 
-export class ObjectService<T> {
-    decoratorService: DecoratorService<T>;
 
-    constructor() {
-        this.decoratorService = new DecoratorService<T>();
+export class RoomService extends ObjectService<Room> {
+
+    registerDecorators() {
+        this.decoratorService.addDecorator(new RoomDecoratorIsActive())
     }
 
-    public async list(): Promise<T[]> {
-        const connection = await DatabaseProvider.getConnection();
-        //How to pass a class Name as a variable
-        const objects = await connection.getRepository(T).find();
-        return await Promise.all(objects.map(async (object) => {
-            return await this.decoratorService.decorate(object);
-        }));
-    }
-}
-
-export class RoomService {
     public async create(scene: Room): Promise<Room> {
         // Normally DTO !== DB-Entity, so we "simulate" a mapping of both
         const newObject = new Room();
@@ -38,7 +26,7 @@ export class RoomService {
         const connection = await DatabaseProvider.getConnection();
         const rooms = await connection.getRepository(Room).find();
         return await Promise.all(rooms.map(async (room) => {
-            return await roomDecoratorService.decorate(room);
+            return await this.decoratorService.decorate(room);
         }));
     }
 

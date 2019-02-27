@@ -1,9 +1,17 @@
 import { DatabaseProvider } from '../../utilities/Database';
 import { Sensor } from "./Sensor";
 import { Room } from "../room/Room";
-import { sensorDecoratorService } from "./decorators/SensorDecoratorService";
+import { ObjectService } from "../ObjectService";
+import { SensorDecoratorIsActive } from './decorators/SensorDecoratorIsActive';
 
-export class SensorService {
+
+
+export class SensorService  extends ObjectService<Sensor>{
+
+    registerDecorators() {
+        this.decoratorService.addDecorator(new SensorDecoratorIsActive());
+    }
+
     public async create(roomId: number, setting: Sensor): Promise<Sensor> {
         const connection = await DatabaseProvider.getConnection();
 
@@ -29,7 +37,7 @@ export class SensorService {
         const connection = await DatabaseProvider.getConnection();
         const localObjects = await connection.getRepository(Sensor).find();
         return await Promise.all(localObjects.map( async (localObject) => {
-            return await sensorDecoratorService.decorate(localObject);
+            return await this.decoratorService.decorate(localObject);
         }));
     }
     //TODO: Move functionality to patch and update
