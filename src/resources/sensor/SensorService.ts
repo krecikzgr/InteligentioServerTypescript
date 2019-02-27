@@ -6,7 +6,7 @@ import { SensorDecoratorIsActive } from './decorators/SensorDecoratorIsActive';
 
 
 
-export class SensorService  extends ObjectService<Sensor>{
+export class SensorService extends ObjectService<Sensor>{
 
     registerDecorators() {
         this.decoratorService.addDecorator(new SensorDecoratorIsActive());
@@ -36,7 +36,7 @@ export class SensorService  extends ObjectService<Sensor>{
     public async list(): Promise<Sensor[]> {
         const connection = await DatabaseProvider.getConnection();
         const localObjects = await connection.getRepository(Sensor).find();
-        return await Promise.all(localObjects.map( async (localObject) => {
+        return await Promise.all(localObjects.map(async (localObject) => {
             return await this.decoratorService.decorate(localObject);
         }));
     }
@@ -50,20 +50,11 @@ export class SensorService  extends ObjectService<Sensor>{
 
     public async update(id: number, sensor: Sensor): Promise<Sensor> {
         const connection = await DatabaseProvider.getConnection();
-        const oldSensor = await connection.getRepository(Sensor).findOne(id);
-        if (!oldSensor) {
-            return
-        }
-        oldSensor.description = sensor.description;
-        oldSensor.name = sensor.name;
-        const room = await connection.getRepository(Room).findOne(sensor.roomId);
-        if (!room) {
-            return await connection.getRepository(Sensor).save(oldSensor);
-        }
-        oldSensor.room = room;
-        room.sensors.push(oldSensor);
-        await connection.getRepository(Room).save(room);
-        return await connection.getRepository(Sensor).save(oldSensor);
+        const repository = await connection.getRepository(Sensor)
+        const oldObject = await repository.findOne(id);
+        await repository.merge(oldObject, sensor);
+        await repository.save(oldObject);
+        return this.decoratorService.digest(oldObject);
     }
 }
 
