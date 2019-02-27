@@ -1,18 +1,26 @@
-import {ObjectDecorator} from '../../../ObjectDecorator';
-import {Room} from '../Room';
+import { ObjectDecorator } from '../../../ObjectDecorator';
+import { Room } from '../Room';
+import { sensorService } from '../../sensor/SensorService';
+
 
 export class RoomDecoratorIsActive implements ObjectDecorator<Room> {
-    decorate(object:Room):Promise<Room> {
+    decorate(object: Room): Promise<Room> {
         object.isActive = true;
-        return new Promise((resolve)=> {
+        return new Promise((resolve) => {
             resolve(object);
         })
     }
 
-    digest(object:Room): Promise<Room> {
+    async digest(object: Room): Promise<Room> {
         //TODO: READ THE STATE OF ALLL SENSORS IN THE ROOM
-        return new Promise((resolve)=> {
+        await Promise.all(object.sensors.map(async (sensor) => {
+            sensor.isActive = object.isActive;
+            sensorService.update(sensor.id, sensor);
+        }));
+
+
+        return new Promise((resolve) => {
             resolve(object);
-        }) 
+        })
     }
 }
