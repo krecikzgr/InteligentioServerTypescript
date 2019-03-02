@@ -1,5 +1,6 @@
 import { DecoratorService } from "../ObjectDecorator";
 
+
 export class ObjectService<T> {
     decoratorService: DecoratorService<T>;
 

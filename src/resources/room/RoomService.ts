@@ -14,10 +14,8 @@ export class RoomService extends ObjectService<Room> {
 
     public async create(scene: Room): Promise<Room> {
         // Normally DTO !== DB-Entity, so we "simulate" a mapping of both
-        const newObject = new Room();
-        newObject.name = scene.name;
-        newObject.description = scene.description;
-
+        var newObject = new Room();
+        newObject = scene;
         const connection = await DatabaseProvider.getConnection();
         return await connection.getRepository(Room).save(newObject);
     }
@@ -28,16 +26,6 @@ export class RoomService extends ObjectService<Room> {
         return await Promise.all(rooms.map(async (room) => {
             return await this.decoratorService.decorate(room);
         }));
-    }
-
-    public async activate(id: number, isActive: boolean): Promise<Room> {
-        const connection = await DatabaseProvider.getConnection();
-        const room = await connection.getRepository(Room).findOne(id);
-
-        await Promise.all(room.sensors.map(async (sensor) => {
-            sensorService.activate(sensor.id, isActive);
-        }));
-        return await connection.getRepository(Room).save(room);
     }
 }
 

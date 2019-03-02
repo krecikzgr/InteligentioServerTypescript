@@ -6,6 +6,8 @@ import { SensorDecoratorIsActive } from './decorators/SensorDecoratorIsActive';
 
 
 
+
+
 export class SensorService extends ObjectService<Sensor>{
 
     registerDecorators() {
@@ -13,19 +15,24 @@ export class SensorService extends ObjectService<Sensor>{
     }
 
     public async create(roomId: number, setting: Sensor): Promise<Sensor> {
+        let newObject = new Sensor();
+        newObject = setting;
         const connection = await DatabaseProvider.getConnection();
-
-        const newObject = new Sensor();
-        newObject.isActive = setting.isActive;
-        newObject.name = setting.name;
-        newObject.description = setting.description;
-
-        const room = await connection.getRepository(Room).findOne(roomId);
-        if (!room) {
-            return
-        }
-        newObject.room = room;
         return await connection.getRepository(Sensor).save(newObject);
+
+        // const connection = await DatabaseProvider.getConnection();
+
+        // const newObject = new Sensor();
+        // newObject.isActive = setting.isActive;
+        // newObject.name = setting.name;
+        // newObject.description = setting.description;
+
+        // const room = await connection.getRepository(Room).findOne(roomId);
+        // if (!room) {
+        //     return
+        // }
+        // newObject.room = room;
+        // return await connection.getRepository(Sensor).save(newObject);
     }
 
     public async getById(id: number): Promise<Sensor> {
@@ -39,13 +46,6 @@ export class SensorService extends ObjectService<Sensor>{
         return await Promise.all(localObjects.map(async (localObject) => {
             return await this.decoratorService.decorate(localObject);
         }));
-    }
-    //TODO: Move functionality to patch and update
-
-    public async activate(id: number, isActive: boolean): Promise<Sensor> {
-        const connection = await DatabaseProvider.getConnection();
-        const sensor = await connection.getRepository(Sensor).findOne(id);
-        return await connection.getRepository(Sensor).save(sensor);
     }
 
     public async update(id: number, sensor: Sensor): Promise<Sensor> {
