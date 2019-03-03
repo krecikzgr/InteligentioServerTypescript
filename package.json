@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/krecikzgr/InteligentioServerTypescript#readme",
   "devDependencies": {
+    "ts-node": "^8.0.2",
     "typescript": "^3.2.2"
   },
   "dependencies": {

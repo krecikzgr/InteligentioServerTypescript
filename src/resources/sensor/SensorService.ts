@@ -1,12 +1,7 @@
 import { DatabaseProvider } from '../../utilities/Database';
 import { Sensor } from "./Sensor";
-import { Room } from "../room/Room";
 import { ObjectService } from "../ObjectService";
 import { SensorDecoratorIsActive } from './decorators/SensorDecoratorIsActive';
-
-
-
-
 
 export class SensorService extends ObjectService<Sensor>{
 
@@ -14,25 +9,12 @@ export class SensorService extends ObjectService<Sensor>{
         this.decoratorService.addDecorator(new SensorDecoratorIsActive());
     }
 
-    public async create(roomId: number, setting: Sensor): Promise<Sensor> {
+    public async create(object:Sensor): Promise<Sensor> {
         let newObject = new Sensor();
-        newObject = setting;
+        newObject = object;
         const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Sensor).save(newObject);
-
-        // const connection = await DatabaseProvider.getConnection();
-
-        // const newObject = new Sensor();
-        // newObject.isActive = setting.isActive;
-        // newObject.name = setting.name;
-        // newObject.description = setting.description;
-
-        // const room = await connection.getRepository(Room).findOne(roomId);
-        // if (!room) {
-        //     return
-        // }
-        // newObject.room = room;
-        // return await connection.getRepository(Sensor).save(newObject);
+        await connection.getRepository(Sensor).save(newObject);
+        return this.decoratorService.digest(newObject);
     }
 
     public async getById(id: number): Promise<Sensor> {
@@ -48,13 +30,19 @@ export class SensorService extends ObjectService<Sensor>{
         }));
     }
 
-    public async update(id: number, sensor: Sensor): Promise<Sensor> {
+    public async update(id: number, object: Sensor): Promise<Sensor> {
         const connection = await DatabaseProvider.getConnection();
         const repository = await connection.getRepository(Sensor)
         const oldObject = await repository.findOne(id);
-        await repository.merge(oldObject, sensor);
+        await repository.merge(oldObject, object);
         await repository.save(oldObject);
         return this.decoratorService.digest(oldObject);
+    }
+
+    public async delete(id:number) {
+        const connection = await DatabaseProvider.getConnection();
+        const repository = await connection.getRepository(Sensor);
+        repository.delete(id);
     }
 }
 
