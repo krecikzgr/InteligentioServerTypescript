@@ -9,7 +9,9 @@ export class RoomDecoratorIsActive implements ObjectDecorator<Room> {
         console.log("BEGIN DECORATION");
         const localObject = object;
         const sensors = await sensorService.listForRoom(object.id)
-        const activeSensors = await sensors.filter(sensor=>sensor.isActive)
+        //TEN ASYNC SIĘ SYPIE
+        console.log("SENSOR SERVICE LIST FOR ROOM " + sensors.length)
+        const activeSensors = sensors.filter(sensor=>sensor.isActive)
         if(activeSensors.length > 0) {
             localObject.isActive = true
         } else {
