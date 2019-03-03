@@ -16,6 +16,7 @@ export class RoomResource implements Resource {
         const responseBuilder = new ResponseBuilder();
         try {
             const data = await roomService.list();
+            console.log("BUILD DATA")
             responseBuilder.withData(data)
                 .withMessage("Objects")
                 .build(res);
