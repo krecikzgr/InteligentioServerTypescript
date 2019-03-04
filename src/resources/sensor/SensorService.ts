@@ -25,19 +25,23 @@ export class SensorService extends ObjectService<Sensor>{
     public async list(): Promise<Sensor[]> {
         const connection = await DatabaseProvider.getConnection();
         const localObjects = await connection.getRepository(Sensor).find();
-        return []
-        return await Promise.all(localObjects.map(async (localObject) => {
-            return await this.decoratorService.decorate(localObject);
+        let pushedObjects = []
+        await Promise.all(localObjects.map(async (localObject) => {
+            const decoratedObject = await this.decoratorService.decorate(localObject);
+            pushedObjects.push(decoratedObject)
         }));
+        return pushedObjects;
     }
 
     public async update(id: number, object: Sensor): Promise<Sensor> {
         const connection = await DatabaseProvider.getConnection();
         const repository = await connection.getRepository(Sensor)
-        const oldObject = await repository.findOne(id);
+        let oldObject = await repository.findOne(id);
+        object = await this.decoratorService.digest(object);
         await repository.merge(oldObject, object);
         await repository.save(oldObject);
-        return this.decoratorService.digest(oldObject);
+        oldObject = await this.decoratorService.decorate(oldObject);
+        return oldObject
     }
 
     public async listForRoom(roomId:number): Promise<Sensor[]> {
