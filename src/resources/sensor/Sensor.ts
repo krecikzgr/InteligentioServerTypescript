@@ -26,6 +26,6 @@ export class Sensor {
     
     public settings: SceneSetting[];
 
-    //Calculated fields
+    @Column()
     public isActive:boolean;
 }

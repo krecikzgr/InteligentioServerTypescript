@@ -15,23 +15,19 @@ export class DecoratorService<T> {
         this.decorators.push(decorator);
     }
 
-    decorate(object: T): Promise<T> {
+    async decorate(object: T): Promise<T> {
         var localObject = object;
-        this.decorators.forEach(async (decorator) => {
+        await Promise.all(this.decorators.map(async (decorator) => {
             localObject = await decorator.decorate(localObject);
-        })
-        return new Promise((resolve) => {
-            resolve(localObject);
-        })
+        }));
+        return localObject
     }
 
-    digest(object: T): Promise<T> {
+    async digest(object: T): Promise<T> {
         var localObject = object;
-        this.decorators.forEach(async (decorator) => {
+        await Promise.all(this.decorators.map(async (decorator) => {
             localObject = await decorator.digest(localObject);
-        })
-        return new Promise((resolve) => {
-            resolve(localObject);
-        })
+        }));
+        return localObject;
     }
 }

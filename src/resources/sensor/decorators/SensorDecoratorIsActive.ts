@@ -3,7 +3,7 @@ import { Sensor } from '../Sensor';
 
 export class SensorDecoratorIsActive implements ObjectDecorator<Sensor> {
     decorate(object: Sensor): Promise<Sensor> {
-        object.isActive = true;
+        //object.isActive = true;
         return new Promise((resolve) => {
             resolve(object);
         })

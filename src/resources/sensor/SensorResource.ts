@@ -15,39 +15,46 @@ export class SensorResource implements Resource {
 
     private async list(req: Request, res: Response) {
         const responseBuilder = new ResponseBuilder();
-        const data = await sensorService.list();
-        responseBuilder.withData(data)
-            .withMessage("Objects")
-            .build(res);
+        try {
+            const data = await sensorService.list();
+            responseBuilder.withData(data)
+                .withMessage("Objects")
+                .build(res);
+        } catch (e) {
+            responseBuilder
+                .withHttpResourceNotAvailable()
+                .withMessage(e.detail)
+                .build(res)
+        }
     }
 
     private async get(req: Request, res: Response) {
         const responseBuilder = new ResponseBuilder();
-        const data = await sensorService.getById(req.params.id)
-        if (data == null) {
-            responseBuilder
-                .withHttpResourceNotAvailable()
-                .withMessage("No object with given id")
-                .build(res)
-        } else {
+        try {
+            const data = await sensorService.getById(req.params.id)
             responseBuilder.withData(data)
                 .withMessage("Object")
                 .build(res);
+        } catch (e) {
+            responseBuilder
+                .withHttpResourceNotAvailable()
+                .withMessage(e.detail)
+                .build(res)
         }
     }
 
     private async create(req: Request, res: Response) {
         const responseBuilder = new ResponseBuilder();
-        const data = await sensorService.create(req.params.sceneId, req.body)
-        if (data == null) {
-            responseBuilder
-                .withHttpResourceNotAvailable()
-                .withMessage("No object with given id")
-                .build(res)
-        } else {
+        try {
+            const data = await sensorService.create(req.body)
             responseBuilder.withData(data)
                 .withMessage("Object")
                 .build(res);
+        } catch (e) {
+            responseBuilder
+                .withHttpResourceNotAvailable()
+                .withMessage(e.detail)
+                .build(res)
         }
     }
 

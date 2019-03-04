@@ -6,6 +6,7 @@ export class ObjectService<T> {
 
     constructor() {
         this.decoratorService = new DecoratorService<T>();
+        this.registerDecorators();
     }
 
     registerDecorators() {}
