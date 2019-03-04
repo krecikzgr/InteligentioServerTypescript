@@ -11,7 +11,7 @@ export class RoomService extends ObjectService<Room> {
         this.decoratorService.addDecorator(new RoomDecoratorIsActive())
     }
 
-    public async create(object:Room): Promise<Room> {
+    public async create(object: Room): Promise<Room> {
         let newObject = new Room();
         newObject = object;
         const connection = await DatabaseProvider.getConnection();
@@ -38,13 +38,15 @@ export class RoomService extends ObjectService<Room> {
     public async update(id: number, object: Room): Promise<Room> {
         const connection = await DatabaseProvider.getConnection();
         const repository = await connection.getRepository(Room)
-        const oldObject = await repository.findOne(id);
+        let oldObject = await repository.findOne(id);
+        object = await this.decoratorService.digest(object);
         await repository.merge(oldObject, object);
         await repository.save(oldObject);
-        return this.decoratorService.digest(oldObject);
+        oldObject = await this.decoratorService.decorate(oldObject);
+        return oldObject
     }
 
-    public async delete(id:number) {
+    public async delete(id: number) {
         const connection = await DatabaseProvider.getConnection();
         const repository = await connection.getRepository(Room);
         repository.delete(id);
