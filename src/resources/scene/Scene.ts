@@ -1,5 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
-import {SceneSetting} from '../sceneSetting/SceneSetting';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { SceneSetting } from '../sceneSetting/SceneSetting';
 
 @Entity()
 export class Scene {
@@ -16,4 +16,7 @@ export class Scene {
         eager: true
     })
     public settings: SceneSetting[];
+
+    //Calculated fields
+    public isActive: boolean;
 }

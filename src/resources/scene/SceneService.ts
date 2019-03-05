@@ -1,10 +1,11 @@
 import { Scene } from "./Scene";
 import { DatabaseProvider } from '../../utilities/Database';
 import { ObjectService } from "../ObjectService";
+import { SceneDecoratorIsActive } from "./decorators/SceneDecoratorIsActive";
 
 export class SceneService extends ObjectService<Scene> {
     registerDecorators() {
-
+        this.decoratorService.addDecorator(new SceneDecoratorIsActive());
     }
 
     public async create(object: Scene): Promise<Scene> {

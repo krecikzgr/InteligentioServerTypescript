@@ -43,6 +43,18 @@ export class SceneSettingService extends ObjectService<SceneSetting>{
         return oldObject
     }
 
+    public async listForScene(id:number): Promise<SceneSetting[]> {
+        const connection = await DatabaseProvider.getConnection();
+        const repository = await connection.getRepository(SceneSetting)
+        const localObjects = await repository.find({ where: { sceneId: id }});
+        let decoratedObjects = []
+        await Promise.all(localObjects.map(async (localObject) => {
+            const decoratedObject = await this.decoratorService.decorate(localObject);
+            decoratedObjects.push(decoratedObject);
+        }));
+        return decoratedObjects
+    }
+
     public async delete(id: number) {
         const connection = await DatabaseProvider.getConnection();
         const repository = await connection.getRepository(SceneSetting);

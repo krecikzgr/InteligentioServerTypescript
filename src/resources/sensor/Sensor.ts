@@ -20,10 +20,7 @@ export class Sensor {
     @JoinTable()
     public room:Room;
 
-    @OneToMany(type => SceneSetting, setting => setting.sensor, {
-        eager: true
-    })
-    
+    @OneToMany(type => SceneSetting, setting => setting.sensor)
     public settings: SceneSetting[];
 
     @Column()

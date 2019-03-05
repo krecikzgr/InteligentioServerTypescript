@@ -57,6 +57,8 @@ export class SceneSettingResource implements Resource {
         }
     }
 
+    
+
     private async update(req: Request, res: Response): Promise<void> {
         const responseBuilder = new ResponseBuilder();
         try {
