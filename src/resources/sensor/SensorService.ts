@@ -6,7 +6,7 @@ import { SensorDecoratorIsActive } from './decorators/SensorDecoratorIsActive';
 export class SensorService extends ObjectService<Sensor>{
 
     registerDecorators() {
-        //this.decoratorService.addDecorator(new SensorDecoratorIsActive());
+        this.decoratorService.addDecorator(new SensorDecoratorIsActive());
     }
 
     public async create(object:Sensor): Promise<Sensor> {

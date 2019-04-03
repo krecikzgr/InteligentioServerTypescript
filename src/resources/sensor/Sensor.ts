@@ -23,6 +23,10 @@ export class Sensor {
     @OneToMany(type => SceneSetting, setting => setting.sensor)
     public settings: SceneSetting[];
 
+    //TODO delete this functionality
     @Column()
     public isActive:boolean;
+
+    public isActivated:boolean;
+    public ipAddress:String; 
 }

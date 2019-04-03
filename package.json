@@ -21,15 +21,16 @@
   "homepage": "https://github.com/krecikzgr/InteligentioServerTypescript#readme",
   "devDependencies": {
     "ts-node": "^8.0.2",
-    "typescript": "^3.2.2"
+    "typescript": "^3.4.1"
   },
   "dependencies": {
-    "@types/node": "^10.12.18",
-    "@types/restify": "^7.2.7",
-    "nodemon": "^1.18.9",
-    "pg": "^7.7.1",
-    "reflect-metadata": "^0.1.12",
-    "restify": "^7.4.0",
-    "typeorm": "^0.2.11"
+    "@types/node": "^10.14.4",
+    "@types/restify": "^7.2.9",
+    "axios": "^0.18.0",
+    "nodemon": "^1.18.10",
+    "pg": "^7.9.0",
+    "reflect-metadata": "^0.1.13",
+    "restify": "^7.7.0",
+    "typeorm": "^0.2.16"
   }
 }
