@@ -24,15 +24,16 @@ export class SensorDecoratorIsActive implements ObjectDecorator<Sensor> {
         var value = 0;
         var currentValue = false;
         object.isActivated ? value = 1 : value = 0;
+
         try {
-            const response = await axios.get('http://192.168.0.177:8099/led/'+value);
+            const response = await axios.get('http://192.168.0.177:8099/led/' + value);
             let data = parseInt(response.data);
             if (data == 1) {
                 currentValue = true;
             } else if (data == 0) {
-                currentValue  = false;
+                currentValue = false;
             }
-                console.log(response);
+            console.log(response);
         } catch (error) {
             currentValue = false
         }
@@ -51,14 +52,17 @@ export class SensorDecoratorIsActive implements ObjectDecorator<Sensor> {
         var isActive = false;
         console.log("GET STATE");
         try {
-            const response = await axios.get('http://192.168.0.177:8099/status/');
+            const instance = axios.create({
+                timeout: 3000
+            });
+            const response = await instance.get('http://192.168.0.177:8099/status/');
             let value = parseInt(response.data);
             if (value == 1) {
                 isActive = true;
             } else if (value == 0) {
                 isActive = false;
             }
-                console.log(response);
+            console.log(response);
         } catch (error) {
             isActive = false
         }
