@@ -9,5 +9,5 @@ export class ObjectService<T> {
         this.registerDecorators();
     }
 
-    registerDecorators() {}
+    registerDecorators() { }
 }
