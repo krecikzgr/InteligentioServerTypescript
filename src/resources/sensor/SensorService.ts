@@ -9,7 +9,7 @@ export class SensorService extends ObjectService<Sensor>{
         this.decoratorService.addDecorator(new SensorDecoratorIsActive());
     }
 
-    public async create(object:Sensor): Promise<Sensor> {
+    public async create(object: Sensor): Promise<Sensor> {
         let newObject = new Sensor();
         newObject = object;
         const connection = await DatabaseProvider.getConnection();
@@ -44,10 +44,10 @@ export class SensorService extends ObjectService<Sensor>{
         return oldObject
     }
 
-    public async listForRoom(roomId:number): Promise<Sensor[]> {
+    public async listForRoom(roomId: number): Promise<Sensor[]> {
         const connection = await DatabaseProvider.getConnection();
         const repository = await connection.getRepository(Sensor)
-        const localObjects = await repository.find({ where: { roomId: roomId }});
+        const localObjects = await repository.find({ where: { roomId: roomId } });
         let decoratedObjects = []
         await Promise.all(localObjects.map(async (localObject) => {
             const decoratedObject = await this.decoratorService.decorate(localObject);
@@ -56,7 +56,7 @@ export class SensorService extends ObjectService<Sensor>{
         return decoratedObjects
     }
 
-    public async delete(id:number) {
+    public async delete(id: number) {
         const connection = await DatabaseProvider.getConnection();
         const repository = await connection.getRepository(Sensor);
         repository.delete(id);

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable, OneToMany } from 'typeorm';
 
-abstract class Knot {
+export abstract class Knot {
 
     @PrimaryGeneratedColumn()
     id: number;
