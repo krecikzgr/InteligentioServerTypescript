@@ -1,30 +1,30 @@
 import { DatabaseProvider } from '../../utilities/Database';
-import { Sensor } from "./Sensor";
+import { ESPLightSwitch } from './EspLightSwitch';
 import { ObjectService } from "../ObjectService";
-import { SensorDecoratorIsActive } from './decorators/SensorDecoratorIsActive';
+import { ESPLightSwitchDecoratorIsActive } from './decorators/EspLightSwitchDecorator';
 
-export class SensorService extends ObjectService<Sensor>{
+export class ESPLightSwitchService extends ObjectService<ESPLightSwitch>{
 
     registerDecorators() {
-        this.decoratorService.addDecorator(new SensorDecoratorIsActive());
+        this.decoratorService.addDecorator(new ESPLightSwitchDecoratorIsActive());
     }
 
-    public async create(object: Sensor): Promise<Sensor> {
-        let newObject = new Sensor();
+    public async create(object: ESPLightSwitch): Promise<ESPLightSwitch> {
+        let newObject = new ESPLightSwitch();
         newObject = object;
         const connection = await DatabaseProvider.getConnection();
-        await connection.getRepository(Sensor).save(newObject);
+        await connection.getRepository(ESPLightSwitch).save(newObject);
         return this.decoratorService.digest(newObject);
     }
 
-    public async getById(id: number): Promise<Sensor> {
+    public async getById(id: number): Promise<ESPLightSwitch> {
         const connection = await DatabaseProvider.getConnection();
-        return connection.getRepository(Sensor).findOne(id);
+        return connection.getRepository(ESPLightSwitch).findOne(id);
     }
 
-    public async list(): Promise<Sensor[]> {
+    public async list(): Promise<ESPLightSwitch[]> {
         const connection = await DatabaseProvider.getConnection();
-        const localObjects = await connection.getRepository(Sensor).find();
+        const localObjects = await connection.getRepository(ESPLightSwitch).find();
         let pushedObjects = []
         await Promise.all(localObjects.map(async (localObject) => {
             const decoratedObject = await this.decoratorService.decorate(localObject);
@@ -33,9 +33,9 @@ export class SensorService extends ObjectService<Sensor>{
         return pushedObjects;
     }
 
-    public async update(id: number, object: Sensor): Promise<Sensor> {
+    public async update(id: number, object: ESPLightSwitch): Promise<ESPLightSwitch> {
         const connection = await DatabaseProvider.getConnection();
-        const repository = await connection.getRepository(Sensor)
+        const repository = await connection.getRepository(ESPLightSwitch)
         let oldObject = await repository.findOne(id);
         object = await this.decoratorService.digest(object);
         await repository.merge(oldObject, object);
@@ -44,9 +44,9 @@ export class SensorService extends ObjectService<Sensor>{
         return oldObject
     }
 
-    public async listForRoom(roomId: number): Promise<Sensor[]> {
+    public async listForRoom(roomId: number): Promise<ESPLightSwitch[]> {
         const connection = await DatabaseProvider.getConnection();
-        const repository = await connection.getRepository(Sensor)
+        const repository = await connection.getRepository(ESPLightSwitch)
         const localObjects = await repository.find({ where: { roomId: roomId } });
         let decoratedObjects = []
         await Promise.all(localObjects.map(async (localObject) => {
@@ -58,9 +58,9 @@ export class SensorService extends ObjectService<Sensor>{
 
     public async delete(id: number) {
         const connection = await DatabaseProvider.getConnection();
-        const repository = await connection.getRepository(Sensor);
+        const repository = await connection.getRepository(ESPLightSwitch);
         repository.delete(id);
     }
 }
 
-export const sensorService = new SensorService();
+export const espLightSwitchService = new ESPLightSwitchService();

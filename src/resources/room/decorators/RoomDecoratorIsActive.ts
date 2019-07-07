@@ -1,15 +1,14 @@
 import { ObjectDecorator } from '../../../ObjectDecorator';
 import { Room } from '../Room';
-import { sensorService } from '../../sensor/SensorService';
-import { roomService } from '../RoomService';
+import { sensorService } from '../../sensor/SensorService';;
 
 
 export class RoomDecoratorIsActive implements ObjectDecorator<Room> {
     async decorate(object: Room): Promise<Room> {
         const localObject = object;
         const sensors = await sensorService.listForRoom(object.id)
-        const activeSensors = sensors.filter(sensor=>sensor.isActive)
-        if(activeSensors.length > 0) {
+        const activeSensors = sensors.filter(sensor => sensor.isActive)
+        if (activeSensors.length > 0) {
             localObject.isActive = true
         } else {
             localObject.isActive = false

@@ -1,10 +1,10 @@
 import { Request, Response, Next } from 'restify';
 import { Resource } from '../Resource';
-import { sensorService } from './SensorService';
 import { HttpServer } from '../../httpServer';
 import { ResponseBuilder } from '../../utilities/ResponseBuilder';
+import { espLightSwitchService } from './EspLightSwitchService';
 
-export class SensorResource implements Resource {
+export class EspLightSwitchResource implements Resource {
 
     public initialize(server: HttpServer): void {
         server.get("/sensor", this.list);
@@ -16,7 +16,7 @@ export class SensorResource implements Resource {
     private async list(req: Request, res: Response) {
         const responseBuilder = new ResponseBuilder();
         try {
-            const data = await sensorService.list();
+            const data = await espLightSwitchService.list();
             responseBuilder.withData(data)
                 .withMessage("Objects")
                 .build(res);
@@ -31,7 +31,7 @@ export class SensorResource implements Resource {
     private async get(req: Request, res: Response) {
         const responseBuilder = new ResponseBuilder();
         try {
-            const data = await sensorService.getById(req.params.id)
+            const data = await espLightSwitchService.getById(req.params.id)
             responseBuilder.withData(data)
                 .withMessage("Object")
                 .build(res);
@@ -46,7 +46,7 @@ export class SensorResource implements Resource {
     private async create(req: Request, res: Response) {
         const responseBuilder = new ResponseBuilder();
         try {
-            const data = await sensorService.create(req.body)
+            const data = await espLightSwitchService.create(req.body)
             responseBuilder.withData(data)
                 .withMessage("Object")
                 .build(res);
@@ -61,7 +61,7 @@ export class SensorResource implements Resource {
     private async update(req: Request, res: Response): Promise<void> {
         const responseBuilder = new ResponseBuilder();
         try {
-            const data = await sensorService.update(req.params.id, req.body)
+            const data = await espLightSwitchService.update(req.params.id, req.body)
             responseBuilder
                 .withMessage("Object")
                 .withData(data)
