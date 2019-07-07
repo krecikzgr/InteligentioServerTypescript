@@ -1,18 +1,17 @@
 import { ObjectDecorator } from '../../../ObjectDecorator';
-import { ESPLightSwitch } from '../EspLightSwitch';
+import { EspLightSwitch } from '../EspLightSwitch';
 import axios from 'axios';
 
-export class ESPLightSwitchDecoratorIsActive implements ObjectDecorator<ESPLightSwitch> {
-    async decorate(object: ESPLightSwitch): Promise<ESPLightSwitch> {
+export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLightSwitch> {
+    async decorate(object: EspLightSwitch): Promise<EspLightSwitch> {
         const value = await this.getState(object);
         object.isActive = value;
-        console.log("GET STATE");
         return new Promise((resolve) => {
             resolve(object);
         })
     }
 
-    async digest(object: ESPLightSwitch): Promise<ESPLightSwitch> {
+    async digest(object: EspLightSwitch): Promise<EspLightSwitch> {
         //TODO: READ THE STATE OF THE SENSOR
         await this.setState(object);
         return new Promise((resolve) => {
@@ -20,7 +19,7 @@ export class ESPLightSwitchDecoratorIsActive implements ObjectDecorator<ESPLight
         })
     }
 
-    async setState(object: ESPLightSwitch): Promise<boolean> {
+    async setState(object: EspLightSwitch): Promise<boolean> {
         var value = 0;
         var currentValue = false;
         object.isActive ? value = 1 : value = 0;
@@ -48,7 +47,7 @@ export class ESPLightSwitchDecoratorIsActive implements ObjectDecorator<ESPLight
     //     http://192.168.0.177:8099/led/1
     // } 
 
-    async getState(object: ESPLightSwitch): Promise<boolean> {
+    async getState(object: EspLightSwitch): Promise<boolean> {
         var isActive = false;
         console.log("GET STATE");
         try {

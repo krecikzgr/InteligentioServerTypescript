@@ -3,7 +3,7 @@ import { ESPLightSwitch } from './EspLightSwitch';
 import { ObjectService } from "../ObjectService";
 import { ESPLightSwitchDecoratorIsActive } from './decorators/EspLightSwitchDecorator';
 
-export class ESPLightSwitchService extends ObjectService<ESPLightSwitch>{
+export class EspLightSwitchService extends ObjectService<ESPLightSwitch>{
 
     registerDecorators() {
         this.decoratorService.addDecorator(new ESPLightSwitchDecoratorIsActive());
@@ -63,4 +63,4 @@ export class ESPLightSwitchService extends ObjectService<ESPLightSwitch>{
     }
 }
 
-export const espLightSwitchService = new ESPLightSwitchService();
+export const espLightSwitchService = new EspLightSwitchService();

@@ -3,7 +3,7 @@ import { Knot } from '../../abstracts/knot/Knot';
 import { Room } from '../room/Room';
 
 @Entity()
-export class ESPLightSwitch extends Knot {
+export class EspLightSwitch extends Knot {
     @PrimaryGeneratedColumn()
     public id: number;
 
