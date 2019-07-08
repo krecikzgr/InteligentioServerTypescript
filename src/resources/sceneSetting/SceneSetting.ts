@@ -1,6 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable} from 'typeorm';
-import {Scene} from '../scene/Scene';
-import {Sensor} from '../sensor/Sensor';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinTable } from 'typeorm';
+import { Scene } from '../scene/Scene';
+import { EspLightSwitch } from '../espLightSwitch/EspLightSwitch';
 
 @Entity()
 export class SceneSetting {
@@ -17,7 +17,7 @@ export class SceneSetting {
     @JoinTable()
     public scene: Scene;
 
-    @ManyToOne(type => Sensor, sensor => sensor.settings)
+    @ManyToOne(type => EspLightSwitch, lightSwitch => lightSwitch.settings)
     @JoinTable()
-    public sensor:Promise<Sensor>;
+    public lightSwitch: Promise<EspLightSwitch>;
 }
