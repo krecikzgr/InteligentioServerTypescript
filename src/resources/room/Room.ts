@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable } from 'typeorm';
-import { ESPLightSwitch } from '../espLightSwitch/EspLightSwitch';
+import { EspLightSwitch } from '../espLightSwitch/EspLightSwitch';
 
 @Entity()
 export class Room {
@@ -13,10 +13,10 @@ export class Room {
     @Column()
     public description: string;
 
-    @OneToMany(type => ESPLightSwitch, lightSwitch => lightSwitch.room, {
+    @OneToMany(type => EspLightSwitch, lightSwitch => lightSwitch.room, {
         eager: true
     })
-    public lightSwitches: ESPLightSwitch[];
+    public lightSwitches: EspLightSwitch[];
 
     //Calculated fields
     public isActive: boolean;

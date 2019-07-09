@@ -7,10 +7,10 @@ import { espLightSwitchService } from './EspLightSwitchService';
 export class EspLightSwitchResource implements Resource {
 
     public initialize(server: HttpServer): void {
-        server.get("/sensor", this.list);
-        server.post("/sensor/", this.create.bind(this))
-        server.get("/sensor/:id", this.get)
-        server.patch("/sensor/:id", this.update)
+        server.get("/lightSwitch", this.list);
+        server.post("/lightSwitch/", this.create.bind(this))
+        server.get("/lightSwitch/:id", this.get)
+        server.patch("/lightSwitch/:id", this.update)
     }
 
     private async list(req: Request, res: Response) {

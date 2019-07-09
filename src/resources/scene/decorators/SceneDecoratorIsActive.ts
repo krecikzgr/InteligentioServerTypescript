@@ -1,7 +1,7 @@
 import { ObjectDecorator } from '../../../ObjectDecorator';
 import { Scene } from '../Scene';
 import { sceneSettingService } from '../../sceneSetting/SceneSettingService';
-import { sensorService } from '../../sensor/SensorService';
+import { espLightSwitchService } from '../../espLightSwitch/EspLightSwitchService';
 
 
 export class SceneDecoratorIsActive implements ObjectDecorator<Scene> {
@@ -11,8 +11,8 @@ export class SceneDecoratorIsActive implements ObjectDecorator<Scene> {
         let value: boolean = true;
         await Promise.all(sceneSettings.map(async (sceneSetting) => {
             try {
-                const sensor = await sensorService.getById(sceneSetting.sensorId);
-                value = ( sensor.isActive == sceneSetting.isActive ) && value
+                const sensor = await espLightSwitchService.getById(sceneSetting.sensorId);
+                value = (sensor.isActive == sceneSetting.isActive) && value
             } catch (e) {
                 value = false
             }
@@ -26,9 +26,9 @@ export class SceneDecoratorIsActive implements ObjectDecorator<Scene> {
         const sceneSettings = await sceneSettingService.listForScene(object.id)
         await Promise.all(sceneSettings.map(async (sceneSetting) => {
             try {
-                const sensor = await sensorService.getById(sceneSetting.sensorId);
+                const sensor = await espLightSwitchService.getById(sceneSetting.sensorId);
                 sensor.isActive = localObject.isActive && sceneSetting.isActive
-                await sensorService.update(sensor.id, sensor);
+                await espLightSwitchService.update(sensor.id, sensor);
             } catch (e) {
                 console.log("No sensor for sensor setting")
             }

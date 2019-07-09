@@ -1,8 +1,8 @@
-import {Connection, createConnection} from 'typeorm';
+import { Connection, createConnection } from 'typeorm';
 import { Scene } from "../resources/scene/Scene";
-import {SceneSetting} from '../resources/sceneSetting/SceneSetting';
-import {Room} from '../resources/room/Room';
-import {Sensor} from '../resources/sensor/Sensor';
+import { SceneSetting } from '../resources/sceneSetting/SceneSetting';
+import { Room } from '../resources/room/Room';
+import { EspLightSwitch } from '../resources/espLightSwitch/EspLightSwitch';
 
 export interface DatabaseConfiguration {
     type: 'postgres' | 'mysql' | 'mssql';
@@ -41,7 +41,7 @@ export class DatabaseProvider {
                 Room,
                 Scene,
                 SceneSetting,
-                Sensor
+                EspLightSwitch
             ],
             synchronize: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here

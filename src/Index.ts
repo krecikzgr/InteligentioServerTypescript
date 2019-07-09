@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import {ApiServer} from './App'
-import {DatabaseProvider} from './utilities/Database';
+import { ApiServer } from './App'
+import { DatabaseProvider } from './utilities/Database';
 
 DatabaseProvider.configure({
     type: process.env.DATABASE_TYPE as any || 'postgres',
