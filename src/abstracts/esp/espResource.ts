@@ -1,4 +1,3 @@
-import { Request, Response, Next } from 'restify';
 import { ObjectService } from "../../resources/ObjectService";
 import { Knot } from "../knot/Knot";
 
