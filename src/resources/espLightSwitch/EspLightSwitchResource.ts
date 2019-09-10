@@ -1,6 +1,6 @@
 import { Request, Response, Next } from 'restify';
 import { Resource } from '../Resource';
-import { HttpServer } from '../../httpServer';
+import { HttpServer } from '../../HttpServer';
 import { ResponseBuilder } from '../../utilities/ResponseBuilder';
 import { espLightSwitchService } from './EspLightSwitchService';
 

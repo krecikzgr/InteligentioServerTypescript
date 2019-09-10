@@ -1,7 +1,7 @@
 import {Request, Response, Next} from 'restify';
 import {Resource} from '../Resource';
 import {sceneService} from './SceneService';
-import {HttpServer} from '../../httpServer';
+import {HttpServer} from '../../HttpServer';
 import {ResponseBuilder} from '../../utilities/ResponseBuilder';
 
 export class SceneResource implements Resource {

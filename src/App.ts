@@ -1,4 +1,4 @@
-import {HttpServer} from './httpServer';
+import {HttpServer} from './HttpServer';
 import {RequestHandler, Server} from 'restify';
 import * as restify from 'restify';
 import {RESOURCES} from './resources/Resource';

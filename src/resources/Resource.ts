@@ -1,5 +1,5 @@
 
-import { HttpServer } from '../httpServer'
+import { HttpServer } from '../HttpServer'
 import { SceneResource } from './scene/SceneResource'
 import { SceneSettingResource } from './sceneSetting/SceneSettingResource';
 import { RoomResource } from './room/RoomResource';
