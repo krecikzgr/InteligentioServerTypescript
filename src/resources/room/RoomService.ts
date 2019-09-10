@@ -12,6 +12,7 @@ export class RoomService extends ObjectService<Room> {
     }
 
     public async create(object: Room): Promise<Room> {
+        console.log("CRETE ROOM OBJECT");
         let newObject = new Room();
         newObject = object;
         const connection = await DatabaseProvider.getConnection();
