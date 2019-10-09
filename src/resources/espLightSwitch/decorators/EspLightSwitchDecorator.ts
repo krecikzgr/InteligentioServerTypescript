@@ -49,13 +49,13 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
 
     async getState(object: EspLightSwitch): Promise<boolean> {
         var isActive = false;
-        console.log("GET STATE");
         try {
             const instance = axios.create({
                 timeout: 3000
             });
             const response = await instance.get(object.address + '/status/');
             let value = parseInt(response.data);
+            console.log("VALUE ");
             if (value == 1) {
                 isActive = true;
             } else if (value == 0) {
@@ -63,6 +63,7 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
             }
             console.log(response);
         } catch (error) {
+            console.log("ERROR");
             isActive = false
         }
 
