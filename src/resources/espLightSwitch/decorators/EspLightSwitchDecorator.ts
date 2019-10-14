@@ -55,16 +55,15 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
                 timeout: 3000
             });
             const response = await instance.get(object.address + '/status/');
+            console.log("RESPONSE HTTP STATUS" + response.status.toString);
+            console.log("BODY" + response.data.BODY);
             let value = parseInt(response.data);
-            console.log("VALUE ");
             if (value == 1) {
                 isActive = true;
             } else if (value == 0) {
                 isActive = false;
             }
-            console.log(response);
         } catch (error) {
-            console.log("ERROR" + error);
             isActive = false
         }
 
