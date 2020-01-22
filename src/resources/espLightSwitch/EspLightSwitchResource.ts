@@ -46,6 +46,7 @@ export class EspLightSwitchResource implements Resource {
 
     private async create(req: Request, res: Response) {
         const responseBuilder = new ResponseBuilder();
+        console.log("CREATE THAT STRANGE OBJECT");
         try {
             const data = await espLightSwitchService.create(req.body)
             responseBuilder.withData(data)
