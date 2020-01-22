@@ -52,7 +52,8 @@ export class EspLightSwitchResource implements Resource {
                 .withMessage("Object")
                 .build(res);
         } catch (e) {
-            console.log(e.detail);
+            console.log(e.name);
+            console.log(e.message);
             responseBuilder
                 .withHttpResourceNotAvailable()
                 .withMessage(e.detail)
