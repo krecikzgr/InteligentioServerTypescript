@@ -53,6 +53,7 @@ export class EspLightSwitchResource implements Resource {
                 .withMessage("Object")
                 .build(res);
         } catch (e) {
+            console.log("CREATE THAT STRANGE OBJECT ERROR");
             responseBuilder
                 .withHttpResourceNotAvailable()
                 .withMessage(e.detail)
