@@ -19,7 +19,8 @@ DatabaseProvider.configure({
     password: process.env.DATABASE_PASSWORD || 'admin',
     host: process.env.DATABASE_HOST || 'localhost',
     port: +process.env.DATABASE_PORT || 5432,
-    ssl: !!process.env.USE_SSL
+    ssl: !!process.env.USE_SSL,
+    synchronize: true
 });
 
 const app = new ApiServer()

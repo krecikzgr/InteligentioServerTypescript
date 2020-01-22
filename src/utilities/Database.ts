@@ -12,6 +12,7 @@ export interface DatabaseConfiguration {
     password: string;
     database: string;
     ssl?: boolean;
+    synchronize: boolean;
 }
 
 export class DatabaseProvider {
@@ -31,9 +32,9 @@ export class DatabaseProvider {
             throw new Error('DatabaseProvider is not configured yet.');
         }
 
-        const { type, host, port, username, password, database, ssl } = DatabaseProvider.configuration;
+        const { type, host, port, username, password, database, ssl, synchronize } = DatabaseProvider.configuration;
         DatabaseProvider.connection = await createConnection({
-            type, host, port, username, password, database,
+            type, host, port, username, password, database, synchronize,
             extra: {
                 ssl
             },
@@ -43,7 +44,6 @@ export class DatabaseProvider {
                 SceneSetting,
                 EspLightSwitch
             ],
-            synchronize: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
         return DatabaseProvider.connection;
     }
