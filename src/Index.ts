@@ -20,7 +20,7 @@ DatabaseProvider.configure({
     host: process.env.DATABASE_HOST || 'localhost',
     port: +process.env.DATABASE_PORT || 5432,
     ssl: !!process.env.USE_SSL,
-    synchronize: false
+    synchronize: true
 });
 
 const app = new ApiServer()
