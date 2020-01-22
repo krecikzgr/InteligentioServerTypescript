@@ -17,6 +17,9 @@ export class EspLightSwitch extends Knot {
     @Column({ nullable: true })
     roomId: number;
 
+    @Column()
+    public remoteId: number;
+
     @ManyToOne(type => Room, room => room.lightSwitches)
     @JoinTable()
     public room: Room;

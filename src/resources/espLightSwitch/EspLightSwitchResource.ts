@@ -14,6 +14,7 @@ export class EspLightSwitchResource implements Resource {
     }
 
     private async list(req: Request, res: Response) {
+        console.log("LIST LIGHT SWITCHES");
         const responseBuilder = new ResponseBuilder();
         try {
             const data = await espLightSwitchService.list();
