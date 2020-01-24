@@ -23,7 +23,7 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
         var value = 0;
         var currentValue = false;
         object.isActive ? value = 1 : value = 0;
-        console.log("SEND STATE");
+        console.log("SEND STATE" + object);
         try {
             const response = await axios.get(object.address + '/led', {
                 params: {
