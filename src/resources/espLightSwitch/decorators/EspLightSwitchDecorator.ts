@@ -26,7 +26,6 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
         var currentValue = false;
         object.isActive ? value = 1 : value = 0;
         try {
-            console.log("TRY TO SEND DATA " + object.address);
             const instance = axios.create({
                 timeout: 3000
             });
@@ -36,7 +35,6 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
                     id: object.remoteId
                 }
             });
-            console.log("AFTER RESPONSE");
             let data = parseInt(response.data);
             if (data == 1) {
                 currentValue = true;
@@ -45,7 +43,7 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
             }
             console.log(response);
         } catch (error) {
-            console.log("THERE IS AN ERROR IN SET STATE REQUEST ");
+            console.log("Update ESPLightSwitchError");
             console.log(error.name);
             console.log(error.message);
             currentValue = false
@@ -63,14 +61,15 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
 
     async getState(object: EspLightSwitch): Promise<boolean> {
         var isActive = false;
-        console.log("REQUEST ADDRESS " + object.address + '/status/');
         try {
             const instance = axios.create({
                 timeout: 3000
             });
-            const response = await instance.get(object.address + '/status/');
-            console.log("RESPONSE HTTP STATUS" + response.status.toString);
-            console.log("BODY" + response.data.BODY);
+            const response = await instance.get(object.address + '/status/', {
+                params: {
+                    id: object.remoteId
+                }
+            });
             let value = parseInt(response.data);
             if (value == 1) {
                 isActive = true;
@@ -78,7 +77,6 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
                 isActive = false;
             }
         } catch (error) {
-            console.log("THERE IS AN ERROR IN THIS REQUEST ");
             console.log(error.detail);
             isActive = false
         }
