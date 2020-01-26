@@ -43,6 +43,8 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
             }
             console.log(response);
         } catch (error) {
+            console.log("THERE IS AN ERROR IN SET STATE REQUEST ");
+            console.log(error.detail);
             currentValue = false
         }
 
