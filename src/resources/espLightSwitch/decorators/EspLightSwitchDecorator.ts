@@ -26,31 +26,31 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
         var currentValue = false;
         object.isActive ? value = 1 : value = 0;
         console.log("SEND STATE" + object);
-        try {
-            console.log("TRY TO SEND DATA " + object.address);
-            const instance = axios.create({
-                timeout: 20
-            });
-            const response = await instance.get(object.address + '/led', {
-                params: {
-                    on: value,
-                    id: object.remoteId
-                }
-            });
-            console.log("AFTER RESPONSE");
-            let data = parseInt(response.data);
-            if (data == 1) {
-                currentValue = true;
-            } else if (data == 0) {
-                currentValue = false;
+        //try {
+        console.log("TRY TO SEND DATA " + object.address);
+        const instance = axios.create({
+            timeout: 20
+        });
+        const response = await instance.get(object.address + '/led', {
+            params: {
+                on: value,
+                id: object.remoteId
             }
-            console.log(response);
-        } catch (error) {
-            console.log("THERE IS AN ERROR IN SET STATE REQUEST ");
-            console.log(error.name);
-            console.log(error.message);
-            currentValue = false
+        });
+        console.log("AFTER RESPONSE");
+        let data = parseInt(response.data);
+        if (data == 1) {
+            currentValue = true;
+        } else if (data == 0) {
+            currentValue = false;
         }
+        console.log(response);
+        //} catch (error) {
+        console.log("THERE IS AN ERROR IN SET STATE REQUEST ");
+        //console.log(error.name);
+        //console.log(error.message);
+        currentValue = false
+        //}
 
         return new Promise((resolve) => {
             resolve(currentValue);
