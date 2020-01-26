@@ -73,6 +73,8 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
                 isActive = false;
             }
         } catch (error) {
+            console.log("THERE IS AN ERROR IN THIS REQUEST ");
+            console.log(error.detail);
             isActive = false
         }
 
