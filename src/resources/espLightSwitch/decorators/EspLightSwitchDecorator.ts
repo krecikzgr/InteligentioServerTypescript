@@ -61,7 +61,7 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
         console.log("REQUEST ADDRESS " + object.address + '/status/');
         try {
             const instance = axios.create({
-                timeout: 3000
+                timeout: 20
             });
             const response = await instance.get(object.address + '/status/');
             console.log("RESPONSE HTTP STATUS" + response.status.toString);
