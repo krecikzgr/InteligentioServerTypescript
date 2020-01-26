@@ -28,7 +28,10 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
         console.log("SEND STATE" + object);
         try {
             console.log("TRY TO SEND DATA");
-            const response = await axios.get(object.address + '/led', {
+            const instance = axios.create({
+                timeout: 20
+            });
+            const response = await instance.get(object.address + '/led', {
                 params: {
                     on: value,
                     id: object.remoteId
