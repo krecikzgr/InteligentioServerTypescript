@@ -25,9 +25,8 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
         var value = 0;
         var currentValue = false;
         object.isActive ? value = 1 : value = 0;
-        console.log("SEND STATE" + object);
         try {
-            console.log("TRY TO SEND DATA " + object);
+            console.log("TRY TO SEND DATA " + object.address);
             const instance = axios.create({
                 timeout: 20
             });
