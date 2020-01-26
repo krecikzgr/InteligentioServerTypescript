@@ -38,7 +38,7 @@ export class EspLightSwitchService extends ObjectService<EspLightSwitch>{
         const repository = await connection.getRepository(EspLightSwitch)
         let oldObject = await repository.findOne(id);
         object = await this.decoratorService.digest(object);
-        await repository.merge(oldObject, object);
+        repository.merge(oldObject, object);
         await repository.save(oldObject);
         oldObject = await this.decoratorService.decorate(oldObject);
         return oldObject

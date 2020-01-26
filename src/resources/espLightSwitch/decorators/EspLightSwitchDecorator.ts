@@ -4,6 +4,7 @@ import axios from 'axios';
 
 export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLightSwitch> {
     async decorate(object: EspLightSwitch): Promise<EspLightSwitch> {
+        console.log("ESP DECORATE");
         const value = await this.getState(object);
         object.isActive = value;
         return new Promise((resolve) => {
@@ -12,6 +13,7 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
     }
 
     async digest(object: EspLightSwitch): Promise<EspLightSwitch> {
+        console.log("ESP DIGEST");
         //TODO: READ THE STATE OF THE SENSOR
         await this.setState(object);
         return new Promise((resolve) => {
