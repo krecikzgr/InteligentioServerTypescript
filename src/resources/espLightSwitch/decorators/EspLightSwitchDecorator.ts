@@ -31,6 +31,7 @@ export class EspLightSwitchDecoratorIsActive implements ObjectDecorator<EspLight
                     id: object.remoteId
                 }
             });
+            console.log("AFTER RESPONSE");
             let data = parseInt(response.data);
             if (data == 1) {
                 currentValue = true;
